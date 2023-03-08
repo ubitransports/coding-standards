@@ -1,0 +1,24 @@
+<?php
+
+use Ubitransport\CodingStandards\Fixer\NoBlankLineBeforeOpeningTagFixer;
+
+
+$finder = new PhpCsFixer\Finder();
+$finder->in('src')
+       ->in('tests');
+
+$config = new PhpCsFixer\Config();
+return $config->registerCustomFixers(
+        [
+            new NoBlankLineBeforeOpeningTagFixer,
+        ]
+    )
+    ->setRules(
+        [
+            '@Symfony' => true,
+            'array_syntax' => ['syntax' => 'short'],
+            'yoda_style' => false,
+            'Ubitransport/no_blank_line_before_opening_tag' => true,
+        ]
+    )
+    ->setFinder($finder);

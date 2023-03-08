@@ -1,0 +1,28 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# VSCode project files
+.vscode
+
+# PHPStorm project files
+/.idea
+
+# Eclipse project files
+/.cache
+.project
+/.settings
+.buildpath
+
+.sublime-project
+.sublime-workspace
+
+/vendor
+/.php_cs.cache

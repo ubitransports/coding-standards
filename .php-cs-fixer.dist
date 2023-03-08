@@ -1,0 +1,15 @@
+<?php
+
+// CS config for coding-standards itself
+
+$finder = new PhpCsFixer\Finder();
+$finder->in('src')
+       ->in('tests');
+
+$config = new PhpCsFixer\Config();
+return $config->setRules([
+    '@Symfony' => true,
+    'array_syntax' => ['syntax' => 'short'],
+    'yoda_style' => false,
+])
+->setFinder($finder);

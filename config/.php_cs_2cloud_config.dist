@@ -1,0 +1,23 @@
+<?php
+
+use Ubitransport\CodingStandards\Fixer\NoBlankLineBeforeOpeningTagFixer;
+
+$finder = new PhpCsFixer\Finder();
+$finder->in('app')
+    ->exclude('View/Themed')
+    ->notName("*.ctp")
+    ->notName("acl.ini.php")
+    ->notName("cake.php");
+
+$config = new PhpCsFixer\Config();
+return $config->registerCustomFixers(
+        [
+            new NoBlankLineBeforeOpeningTagFixer,
+        ]
+    )
+    ->setFinder($finder)
+    ->setRules(
+        [
+            'Ubitransport/no_blank_line_before_opening_tag' => true,
+        ]
+    );

@@ -1,0 +1,23 @@
+{
+  "name": "ubitransport/coding-standards",
+  "description": "Coding standards definition",
+  "authors": [
+    {
+      "name": "Ubitransport",
+      "homepage": "https://ubitransport.com/"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Ubitransport\\CodingStandards\\": "src/CodingStandards/",
+      "Ubitransport\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "friendsofphp/php-cs-fixer": "^v3.2.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "5.7.*",
+    "phpstan/phpstan": "*"
+  }
+}
