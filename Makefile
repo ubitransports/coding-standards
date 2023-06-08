@@ -1,7 +1,6 @@
 USER = 1000
 
-PHP_CONTAINER_ID = $(shell docker-compose ps -q php)
-DOCKER_EXEC = docker exec -u $(USER) "$(PHP_CONTAINER_ID)"
+DOCKER_EXEC = docker-compose exec -u $(USER) php
 PHP_CS_FIXER = $(DOCKER_EXEC) vendor/bin/php-cs-fixer
 PHPSTAN = $(DOCKER_EXEC) vendor/bin/phpstan
 PHP = $(DOCKER_EXEC) php
@@ -24,14 +23,10 @@ stop: ## Stop the project
 build: ## Build the container
 	docker-compose build
 
-prepare_composer :
-	docker exec "$(PHP_CONTAINER_ID)" chown $(USER) -R /usr/local/bin/composer
-	docker exec "$(PHP_CONTAINER_ID)" chown $(USER) -R vendor composer.lock
-
-composer-update: start prepare_composer ## Run composer update
+composer-update: start ## Run composer update
 	$(PHP) -d memory_limit=-1 /usr/local/bin/composer update --no-cache $(args)
 
-composer-install: start prepare_composer ## Run composer install
+composer-install: start ## Run composer install
 	$(PHP) -d memory_limit=-1 /usr/local/bin/composer install --no-interaction --no-cache
 
 shell: start ## Open shell in coding-standards container
@@ -49,4 +44,4 @@ php-cs-check: start ## Check PHP code style
 phpstan: start ## Run PHPStan analysis
 	$(PHPSTAN) analyse $(PHPSTAN_LEVEL)
 
-.PHONY: prepare_composer help start stop build composer-update composer-install shell test php-cs-fix php-cs-check phpstan
+.PHONY: help start stop build composer-update composer-install shell test php-cs-fix php-cs-check phpstan
