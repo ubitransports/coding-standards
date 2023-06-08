@@ -17,10 +17,10 @@
     "friendsofphp/php-cs-fixer": "^v3.2.1",
     "infection/infection": "0.26.0",
     "phpunit/phpunit": "^9.5",
-    "phpstan/phpstan": "^1.10.6",
-    "phpstan/phpstan-doctrine": "^1.3.35",
-    "phpstan/phpstan-symfony": "^1.2.23",
-    "phpstan/phpstan-phpunit": "^1.3.10"
+    "phpstan/phpstan": "1.10.6",
+    "phpstan/phpstan-doctrine": "1.3.35",
+    "phpstan/phpstan-symfony": "1.2.23",
+    "phpstan/phpstan-phpunit": "1.3.10"
   },
   "config": {
     "allow-plugins": {
