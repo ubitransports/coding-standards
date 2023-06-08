@@ -1,7 +1,6 @@
 USER = 1000
 
-PHP_CONTAINER_ID = $(shell docker-compose ps -q php)
-DOCKER_EXEC = docker exec -u $(USER) "$(PHP_CONTAINER_ID)"
+DOCKER_EXEC = docker-compose exec -u $(USER) php
 PHP_CS_FIXER = $(DOCKER_EXEC) vendor/bin/php-cs-fixer
 PHPSTAN = $(DOCKER_EXEC) vendor/bin/phpstan
 PHP = $(DOCKER_EXEC) php
@@ -24,9 +23,8 @@ stop: ## Stop the project
 build: ## Build the container
 	docker-compose build
 
-prepare_composer :
-	docker exec "$(PHP_CONTAINER_ID)" chown $(USER) -R /usr/local/bin/composer
-	docker exec "$(PHP_CONTAINER_ID)" chown $(USER) -R vendor composer.lock
+prepare_composer:
+	$(DOCKER_EXEC) chown $(USER) -R /usr/local/bin/composer
 
 composer-update: start prepare_composer ## Run composer update
 	$(PHP) -d memory_limit=-1 /usr/local/bin/composer update --no-cache $(args)
