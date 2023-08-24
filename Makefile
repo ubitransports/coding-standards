@@ -1,50 +1,53 @@
-USER = 1000
-
-DOCKER_EXEC = docker-compose exec -u $(USER) php
+DOCKER_EXEC = docker-compose exec php
 PHP_CS_FIXER = $(DOCKER_EXEC) vendor/bin/php-cs-fixer
 PHPSTAN = $(DOCKER_EXEC) vendor/bin/phpstan
-PHP = $(DOCKER_EXEC) php
-
-.DEFAULT_GOAL := help
+PHPCS = $(DOCKER_EXEC) vendor/bin/phpcs
 
 ifdef level
 	PHPSTAN_LEVEL = --level $(level)
 endif
 
-help:
-	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' Makefile | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
+install: build composer-install
+
+uninstall:
+	docker-compose down
+
+build: ## Build the container
+	docker-compose build --pull
 
 start: ## Start the project
-	docker-compose up -d
+	docker-compose up -d --force-recreate
 
 stop: ## Stop the project
 	docker-compose stop
 
-build: ## Build the container
-	docker-compose build
-
-prepare_composer:
-	$(DOCKER_EXEC) chown $(USER) -R /usr/local/bin/composer
-
-composer-update: start prepare_composer ## Run composer update
-	$(PHP) -d memory_limit=-1 /usr/local/bin/composer update --no-cache $(args)
-
-composer-install: start prepare_composer ## Run composer install
-	$(PHP) -d memory_limit=-1 /usr/local/bin/composer install --no-interaction --no-cache
-
 shell: start ## Open shell in coding-standards container
 	$(DOCKER_EXEC) sh
+
+composer-install: start ## Run composer install
+	$(DOCKER_EXEC) composer install --no-interaction
+
+composer-update: start ## Run composer update
+	$(DOCKER_EXEC) composer update $(args)
 
 test: start ## Execute phpunit tests
 	$(DOCKER_EXEC) vendor/bin/phpunit --configuration phpunit.xml
 
 php-cs-fix: start ## Fix PHP code style
-	$(PHP_CS_FIXER) fix --config=.php-cs-fixer.dist
+	$(PHP_CS_FIXER) fix --config=config/.php-cs-fixer.dist
 
 php-cs-check: start ## Check PHP code style
-	$(PHP_CS_FIXER) fix --config=.php-cs-fixer.dist --verbose --dry-run --using-cache=no --path-mode=intersection
+	$(PHP_CS_FIXER) fix --config=config/.php-cs-fixer.dist --verbose --dry-run --using-cache=no --path-mode=intersection
 
 phpstan: start ## Run PHPStan analysis
 	$(PHPSTAN) analyse $(PHPSTAN_LEVEL)
 
-.PHONY: prepare_composer help start stop build composer-update composer-install shell test php-cs-fix php-cs-check phpstan
+phpcs:
+	$(PHPCS) vendor/bin/phpcs \
+		-p \
+		--warning-severity=0 \
+		--ignore=vendor/,var/ \
+		--bootstrap=config/.phpcs.dist \
+		--standard=vendor/ubitransport/php-code-sniffs/src/Ubitransport/ruleset.xml \
+		--report=ubitransport\\PhpCodeSniffs\\Reports\\Ubitransport \
+		"."

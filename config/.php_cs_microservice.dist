@@ -2,7 +2,6 @@
 
 use Ubitransport\CodingStandards\Fixer\NoBlankLineBeforeOpeningTagFixer;
 
-
 $finder = new PhpCsFixer\Finder();
 $finder->in('src')
        ->in('tests');
