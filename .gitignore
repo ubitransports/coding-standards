@@ -26,3 +26,4 @@ Thumbs.db
 
 /vendor
 .php-cs-fixer.cache
+auth.json
