@@ -3,9 +3,6 @@
 namespace Ubitransport\Tests\Unit\CodingStandards\Fixer;
 
 use PhpCsFixer\Tokenizer\Tokens;
-use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
-use SplFileInfo;
 use Ubitransport\CodingStandards\Fixer\NoBlankLineBeforeOpeningTagFixer;
 
 /**
@@ -13,7 +10,7 @@ use Ubitransport\CodingStandards\Fixer\NoBlankLineBeforeOpeningTagFixer;
  *
  * @coversDefaultClass \Ubitransport\CodingStandards\Fixer\NoBlankLineBeforeOpeningTagFixer
  */
-class NoBlankLineBeforeOpeningTagFixerExpectedResultTest extends PHPUnit_Framework_TestCase
+class NoBlankLineBeforeOpeningTagFixerExpectedResultTest extends \PHPUnit_Framework_TestCase
 {
     private NoBlankLineBeforeOpeningTagFixer $customFixer;
 
@@ -28,7 +25,7 @@ class NoBlankLineBeforeOpeningTagFixerExpectedResultTest extends PHPUnit_Framewo
      */
     public function testFix(): void
     {
-        $file = new SplFileInfo(__DIR__.'/test_cases/containsAnyCharactersBeforePhpOpeningTag.txt');
+        $file = new \SplFileInfo(__DIR__.'/test_cases/containsAnyCharactersBeforePhpOpeningTag.txt');
         /** @var string $fileContent */
         $fileContent = file_get_contents($file);
         $tokens = Tokens::fromCode($fileContent);
@@ -49,7 +46,7 @@ class NoBlankLineBeforeOpeningTagFixerExpectedResultTest extends PHPUnit_Framewo
      */
     public function testSupports($filename, $expected): void
     {
-        /** @var SplFileInfo $splFileInfoMock */
+        /** @var \SplFileInfo $splFileInfoMock */
         $splFileInfoMock = $this->mockSplFileInfoWithFilename($filename);
 
         $this->assertSame($expected, $this->customFixer->supports($splFileInfoMock));
@@ -74,13 +71,13 @@ class NoBlankLineBeforeOpeningTagFixerExpectedResultTest extends PHPUnit_Framewo
     /**
      * @param string $filename
      *
-     * @return PHPUnit_Framework_MockObject_MockObject|SplFileInfo
+     * @return \PHPUnit_Framework_MockObject_MockObject|\SplFileInfo
      */
     private function mockSplFileInfoWithFilename($filename)
     {
         $fileParts = explode('.', $filename);
         $extension = strtolower(end($fileParts));
-        $splFileInfoMock = $this->getMockBuilder(SplFileInfo::class)
+        $splFileInfoMock = $this->getMockBuilder(\SplFileInfo::class)
             ->disableOriginalConstructor()
             ->setMethods(['getFilename', 'getExtension'])
             ->getMock();

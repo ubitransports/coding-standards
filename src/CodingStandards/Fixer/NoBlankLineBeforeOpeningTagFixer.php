@@ -9,7 +9,6 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Utils;
-use SplFileInfo;
 
 final class NoBlankLineBeforeOpeningTagFixer implements FixerInterface
 {
@@ -49,7 +48,7 @@ final class NoBlankLineBeforeOpeningTagFixer implements FixerInterface
         return false;
     }
 
-    public function supports(SplFileInfo $file): bool
+    public function supports(\SplFileInfo $file): bool
     {
         return 'php' === $file->getExtension();
     }
@@ -67,7 +66,7 @@ final class NoBlankLineBeforeOpeningTagFixer implements FixerInterface
         return !$tokens->isMonolithicPhp();
     }
 
-    public function fix(SplFileInfo $file, Tokens $tokens): void
+    public function fix(\SplFileInfo $file, Tokens $tokens): void
     {
         for ($index = 1, $limit = count($tokens); $index < $limit; ++$index) {
             /** @var Token $token */
