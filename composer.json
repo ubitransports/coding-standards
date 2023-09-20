@@ -34,7 +34,8 @@
     "phpstan/phpstan-symfony": "1.2.23",
     "phpunit/phpunit": "^9.5",
     "ubitransport/php-code-sniffs": "^4.5",
-    "wapmorgan/php-deprecation-detector": "^2.0"
+    "wapmorgan/php-deprecation-detector": "^2.0",
+    "maglnet/composer-require-checker": "^4.7"
   },
   "config": {
     "allow-plugins": {
