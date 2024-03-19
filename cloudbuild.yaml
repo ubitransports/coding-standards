@@ -3,11 +3,16 @@ options:
     name: projects/${PROJECT_ID}/locations/europe-west1/workerPools/pool-01
 
 steps:
-  - name: alpine/k8s:1.29.0
+  - name: bitnami/git
     entrypoint: bash
     args:
       - "-c"
       - |-
+        git config --unset credential.helper
+        git config user.name "Cloud Build Runner"
+        git config user.email "ubi-eng-devops@ubitransport.com"
+        git remote set-url origin https://ubi-robot:$$GITHUB_ACCESS_TOKEN@github.com/ubitransports/${REPO_NAME}.git
+        git fetch --unshallow
         git clone https://ubi-robot:$$GITHUB_ACCESS_TOKEN@github.com/ubitransports/devops-wiki.git /tmp/devops-wiki
         sh /tmp/devops-wiki/scripts/tag-creation/run.sh
     secretEnv:
