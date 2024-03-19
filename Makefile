@@ -30,6 +30,9 @@ composer-install: start ## Run composer install
 composer-update: start ## Run composer update
 	$(DOCKER_EXEC) composer update $(args)
 
+composer-require: start ## Run composer update
+	$(DOCKER_EXEC) composer require $(args)
+
 test: start ## Execute phpunit tests
 	$(DOCKER_EXEC) vendor/bin/phpunit --configuration phpunit.xml
 
@@ -43,7 +46,7 @@ phpstan: start ## Run PHPStan analysis
 	$(PHPSTAN) analyse $(PHPSTAN_LEVEL)
 
 phpcs:
-	$(PHPCS) vendor/bin/phpcs \
+	$(PHPCS) \
 		-p \
 		--warning-severity=0 \
 		--ignore=vendor/,var/ \
