@@ -1,0 +1,19 @@
+options:
+  pool:
+    name: projects/${PROJECT_ID}/locations/europe-west1/workerPools/pool-01
+
+steps:
+  - name: alpine/k8s:1.29.0
+    entrypoint: bash
+    args:
+      - "-c"
+      - |-
+        git clone https://ubi-robot:$$GITHUB_ACCESS_TOKEN@github.com/ubitransports/devops-wiki.git /tmp/devops-wiki
+        sh /tmp/devops-wiki/scripts/tag-creation/run.sh
+    secretEnv:
+      - "GITHUB_ACCESS_TOKEN"
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/${PROJECT_ID}/secrets/github-access-token/versions/latest
+      env: GITHUB_ACCESS_TOKEN
