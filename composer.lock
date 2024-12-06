@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "adb78254db66be9669a39bb89f7cde3c",
+    "content-hash": "a6ada1f158de53f09f2b34671dbd53ca",
     "packages": [
         {
             "name": "behat/behat",
@@ -5388,11 +5388,11 @@
         },
         {
             "name": "ubitransport/php-code-sniffs",
-            "version": "4.5.0",
+            "version": "5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ubitransports/php-code-sniffs.git",
-                "reference": "048d42eb2c9e23e49d9192dfe21718ac64621946"
+                "reference": "f1252bf046d4aec6afb571b4cc093e466b8d9c81"
             },
             "require": {
                 "php": "^7.1||^8.0",
@@ -5422,7 +5422,7 @@
                 "MIT"
             ],
             "description": "From Steevan BARBOYON coding standards.",
-            "time": "2022-07-26T09:55:34+00:00"
+            "time": "2024-12-06T14:01:40+00:00"
         },
         {
             "name": "wapmorgan/php-deprecation-detector",
@@ -5651,10 +5651,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

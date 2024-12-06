@@ -1,9 +1,0 @@
-<?php
-
-declare(strict_types=1);
-
-use ubitransport\PhpCodeSniffs\Ubitransport\Sniffs\Uses\GroupUsesSniff;
-
-GroupUsesSniff::addThirdLevelPrefix('Tcs\\Service');
-GroupUsesSniff::addThirdLevelPrefix('Tcs\\Common');
-GroupUsesSniff::addSymfonyPrefixes();
